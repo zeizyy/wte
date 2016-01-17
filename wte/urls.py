@@ -1,6 +1,6 @@
 from django.conf.urls import include, url
 from django.contrib import admin
-from account import views
+from restaurant import views
 
 urlpatterns = [
     # Examples:
@@ -9,6 +9,6 @@ urlpatterns = [
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^restaurant/', include('restaurant.urls')),
-    url(r'^login/', views.login_user, name = 'Login'),
-    url(r'^logout/', views.logout_user, name = 'Logout'),
+    url(r'^', include('account.urls')),
+    url(r'^$', views.get_next, name = 'next'),
 ]
