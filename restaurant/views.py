@@ -17,6 +17,8 @@ import random
 
 def viewAll(request):
 	user = request.user
+	if not user.is_authenticated:
+		return HttpResponseRedirect(reverse('Login'))
 	restaurant = Restaurant.objects.filter(user = user)
 	return render_to_response('restaurant/all.html',\
 		{'restaurant':restaurant})
