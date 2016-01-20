@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Add Restaurant</h2>
+<form action="{% url 'addRestaurant' %}" method="post">
+<p>Name:
+<input type="text" name="name">
+</p>
+<input type="submit" value="Add">
+</form>
+{% endblock %}

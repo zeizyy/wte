@@ -1,4 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
 {% for r in restaurant %}
-	<p>{{r}}</p>
+	<p>{{r}} <a href="{% url 'deleteRestaurant' r.id %}">delete</a></p>
 {% endfor %}
 	<a href="{% url 'next' %}">Next</a>
+	<br>
+	<a href="{% url 'addRestaurant' %}">Add Restaurant</a>
+
+{% endblock %}

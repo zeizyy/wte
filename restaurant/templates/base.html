@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="apple-touch-icon" href="/static/icon.png"/>
+  <meta name="apple-mobile-web-app-capable" content="yes" />  
+
+  <title>What to Eat?</title>
+
+
+
+
+  <!-- Bootstrap core CSS -->
+  <link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">  
+
+  <!-- <link rel="stylesheet" href="/static/css/buttons.css"> -->
+  <link href="/static/buttons.css" rel="stylesheet">
+
+  <script src="http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+
+  <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  <!-- <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script> -->
+
+
+</head>
+<body>
+  <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <!-- <button type="button" class="navbar-toggle" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>  -->
+
+        <a class="navbar-brand" href="{% url 'viewAll' %}">
+          <span class="glyphicon glyphicon-home"></span>
+          </a>
+      </div>
+
+      <!-- <div id="navbar" class="navbar-collapse collapse">
+        
+    </div>  -->   
+      </div>
+
+  </nav>
+  <br>
+  <br>
+  <br>
+  <div class='container'>
+  {% block content %}
+
+{% endblock %}
+
+
+  </div>
+  <hr>
+    <footer style="text-align:center;">
+      <p>
+      By Ian Zheng - <a href="mail:yz9fy@virginia.edu">yz9fy@virginia.edu</a>
+      </p>
+      <p>
+        Please report any bugs.
+    </footer>
+
+    
+
+</body>
+    
+
+
+</html>
