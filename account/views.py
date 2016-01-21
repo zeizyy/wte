@@ -10,6 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
+import restaurant
 
 # Create your views here.
 def login_user(request):
@@ -28,3 +29,17 @@ def login_user(request):
 def logout_user(request):
 	logout(request)
 	return HttpResponseRedirect(reverse('Login'))
+
+def register_user(request):
+	if request.method == 'POST':
+		user_form = LoginForm(data=request.POST)
+		if user_form.is_valid():
+			user = user_form.save()
+			user.set_password(user.password)
+			user.save()
+			userprofile = UserProfile(user = user)
+			userprofile.save()
+			return HttpResponseRedirect(reverse('Login'))
+	loginForm = LoginForm()
+	return render_to_response('account/register.html', \
+		{'loginForm':LoginForm})

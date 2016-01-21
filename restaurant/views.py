@@ -16,10 +16,12 @@ import random
 # Create your views here.
 
 def viewAll(request):
-	user = request.user
+	user = User.objects.get(pk=request.user.id)
 	if not user.is_authenticated:
 		return HttpResponseRedirect(reverse('Login'))
 	restaurant = Restaurant.objects.filter(user = user)
+	if not restaurant:
+		return HttpResponseRedirect(reverse('addRestaurant'))
 	return render_to_response('restaurant/all.html',\
 		{'restaurant':restaurant})
 
@@ -45,6 +47,8 @@ def get_next(request):
 	userprofile = UserProfile.objects.get(user = user)
 	array = userprofile.array
 	array = json.loads(array)
+	if len(array) == 0:
+		return HttpResponseRedirect(reverse('addRestaurant'))
 	r = random.random()
 	index = 0
 	while r > 0:
@@ -85,6 +89,8 @@ def add_restaurant(request):
 			r.user.add(user)
 			base = userprofile.base
 			array = userprofile.array
+			if not base or not array:
+				return HttpResponseRedirect(reverse('init'))
 			base = json.loads(base)
 			array = json.loads(array)
 			base = add_arr(base, name)
@@ -97,7 +103,10 @@ def add_restaurant(request):
 
 def add_arr(array, name):
 	l = len(array)
-	array.append([name, 1.0/l])
+	if l == 0:
+		array.append([name, 1])
+	else:
+		array.append([name, 1.0/l])
 	s = sum(tup[1] for tup in array)
 	for tup in array:
 		tup[1] = tup[1]/s
@@ -106,13 +115,15 @@ def add_arr(array, name):
 
 def avg_arr(array, index):
 	l = len(array)
+	if l <= 1:
+		return
 	distr = array[index][1]/(l-1)
 	for i in range(l):
 		if i == index:
 			array[i][1] = 0
 		else:
 			array[i][1] += distr
-	return distr
+	return
 
 def delete_restaurant(request, restaurant_id):
 	user = request.user
@@ -142,8 +153,12 @@ def delete_arr(array, name):
 			break
 	del array[index]
 	s = 1 - distr
-	for tup in array:
-		tup[1] = tup[1]/s
+	if s == 0:
+		for tup in array:
+			tup[1] = s/l-1
+	else:
+		for tup in array:
+			tup[1] = tup[1]/s
 	array_str = json.dumps(array)
 	return array_str
 
